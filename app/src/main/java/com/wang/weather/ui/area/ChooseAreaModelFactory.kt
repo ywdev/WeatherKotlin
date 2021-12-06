@@ -1,4 +1,4 @@
-package com.wang.weather
+package com.wang.weather.ui.area
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

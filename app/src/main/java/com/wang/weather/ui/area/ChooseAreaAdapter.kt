@@ -1,4 +1,4 @@
-package com.wang.weather
+package com.wang.weather.ui.area
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.wang.weather.R
 
 /**
  * @author yaowang

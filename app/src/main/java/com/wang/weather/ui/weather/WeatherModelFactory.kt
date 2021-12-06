@@ -1,7 +1,8 @@
-package com.wang.weather.data
+package com.wang.weather.ui.weather
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.wang.weather.data.PlaceRepository
 
 /**
  * @author yaowang

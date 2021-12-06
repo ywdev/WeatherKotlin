@@ -1,12 +1,13 @@
-package com.wang.weather
+package com.wang.weather.ui.area
 
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wang.weather.MainActivity.Companion.LEVEL_PROVINCE
+import com.wang.weather.ui.area.MainActivity.Companion.LEVEL_PROVINCE
+import com.wang.weather.WeatherApplication
 import com.wang.weather.data.PlaceRepository
-import com.wang.weather.data.Province
+import com.wang.weather.data.model.Province
 import kotlinx.coroutines.launch
 import java.util.*
 
