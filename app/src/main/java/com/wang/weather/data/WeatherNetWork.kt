@@ -22,6 +22,9 @@ class WeatherNetWork {
 
     suspend fun fetchProvinceList() = placeService.getProvinces().await()
 
+    suspend fun fetchCityList(provinceId : Int) = placeService.getCities(provinceId).await()
+
+    suspend fun fetchCountryList(provinceId: Int, cityId: Int) = placeService.getCounties(provinceId, cityId).await()
 
     private suspend fun <T> Call<T>.await() : T {
         return suspendCoroutine {

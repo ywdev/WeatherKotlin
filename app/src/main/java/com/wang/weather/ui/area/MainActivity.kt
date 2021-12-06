@@ -23,11 +23,27 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = mAdapter
+        binding.backButton.setOnClickListener {
+            viewModel.onBack()
+        }
+        mAdapter.setOnItemClickListener(object : ChooseAreaAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                viewModel.onItemClick(position)
+            }
+        })
         viewModel.currentLevel.observe(this, { level ->
             when(level){
                 LEVEL_PROVINCE -> {
                     binding.titleText.text = "中国"
                     binding.backButton.visibility = View.GONE
+                }
+                LEVEL_CITY -> {
+                    binding.titleText.text = viewModel.selectedProvince?.provinceName
+                    binding.backButton.visibility = View.VISIBLE
+                }
+                LEVEL_COUNTY -> {
+                    binding.titleText.text = viewModel.selectedCity?.cityName
+                    binding.backButton.visibility = View.VISIBLE
                 }
             }
         })

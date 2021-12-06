@@ -7,11 +7,13 @@ import com.google.gson.annotations.SerializedName
 /**
  * @author yaowang
  * @version 1.0
- * @date：2021/12/2
- * @packagename： com.wang.weather.data
+ * @date：2021/12/6
+ * @packagename： com.wang.weather.data.model
  */
-@Entity(tableName = "province")
-class Province(
-    @SerializedName("name") var provinceName : String,
+@Entity(tableName = "city")
+class City(
+    @SerializedName("name") val cityName: String,
     @PrimaryKey(autoGenerate = false)
-    @SerializedName("id") var provinceCode : Int)
+    @SerializedName("id") val cityCode: Int){
+    var provinceId = 0
+}

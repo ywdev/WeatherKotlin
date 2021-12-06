@@ -23,6 +23,9 @@ class ChooseAreaAdapter(private var context : Context, private var mData : List<
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val myHolder  = holder as BaseDataViewHolder
         myHolder.textView.text = mData[position]
+        myHolder.itemView.setOnClickListener {
+            listener?.onItemClick(position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -33,6 +36,16 @@ class ChooseAreaAdapter(private var context : Context, private var mData : List<
 
         var textView: TextView = itemView.findViewById(R.id.tv_name)
 
+    }
+
+    interface OnItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    var listener : OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.listener = listener
     }
 
 }

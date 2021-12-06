@@ -1,5 +1,6 @@
 package com.wang.weather.data
 
+import com.wang.weather.data.model.City
 import com.wang.weather.data.model.Province
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -19,6 +20,26 @@ class PlaceRepository(var placeDao: PlaceDao, var netWork: WeatherNetWork) {
             placeDao.insertProvince(provinceList)
         }
         provinceList
+    }
+
+    suspend fun getCityList(provinceId : Int) = withContext(Dispatchers.IO){
+        var cityList = placeDao.getCityList(provinceId)
+        if(cityList.isEmpty()){
+            cityList = netWork.fetchCityList(provinceId)
+            cityList.forEach { it.provinceId = provinceId }
+            placeDao.insertCity(cityList)
+        }
+        cityList
+    }
+
+    suspend fun getCountryList(provinceId: Int, cityId : Int) = withContext(Dispatchers.IO){
+        var countryList = placeDao.getCountryList(cityId)
+        if(countryList.isEmpty()){
+            countryList = netWork.fetchCountryList(provinceId, cityId)
+            countryList.forEach { it.cityId = cityId }
+            placeDao.insertCountry(countryList)
+        }
+        countryList
     }
 
     companion object {
