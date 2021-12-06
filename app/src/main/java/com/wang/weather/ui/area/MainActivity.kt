@@ -2,6 +2,7 @@ package com.wang.weather.ui.area
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         })
         viewModel.dataChanged.observe(this, Observer {
             mAdapter.notifyDataSetChanged()
+            Log.d("yaowang","end:"+System.currentTimeMillis())
         })
         viewModel.isLoading.observe(this, Observer {
             if(it){
@@ -86,6 +88,12 @@ class MainActivity : AppCompatActivity() {
         const val LEVEL_PROVINCE = 0
         const val LEVEL_CITY = 1
         const val LEVEL_COUNTY = 2
+    }
+
+    override fun onBackPressed() {
+        if(!viewModel.onBack()){
+            super.onBackPressed()
+        }
     }
 
 }

@@ -47,6 +47,7 @@ class ChooseAreaViewModel(var repository: PlaceRepository) : ViewModel() {
         when (currentLevel.value) {
             LEVEL_PROVINCE -> {
                 selectedProvince = provinces[position]
+                Log.d("yaowang","start:"+System.currentTimeMillis())
                 getCities()
             }
             LEVEL_CITY -> {
@@ -59,12 +60,15 @@ class ChooseAreaViewModel(var repository: PlaceRepository) : ViewModel() {
         }
     }
 
-    fun onBack(){
+    fun onBack() : Boolean{
         if (currentLevel.value == LEVEL_COUNTY) {
             getCities()
+            return true
         } else if (currentLevel.value == LEVEL_CITY) {
             getProvinces()
+            return true
         }
+        return false
     }
 
 

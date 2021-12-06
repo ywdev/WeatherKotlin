@@ -17,21 +17,21 @@ import com.wang.weather.data.model.Province
 interface PlaceDao {
 
     @Insert
-    suspend fun insertProvince(list: MutableList<Province>)
+    fun insertProvince(list: MutableList<Province>)
 
     @Query("select * from province order by provinceCode asc")
-    suspend fun getProvinceList() : MutableList<Province>
+    fun getProvinceList() : MutableList<Province>
 
     @Insert
-    suspend fun insertCity(list: MutableList<City>)
+    fun insertCity(list: MutableList<City>)
 
     @Query("select * from city where provinceId = :provinceId order by cityCode asc")
-    suspend fun getCityList(provinceId : Int) : MutableList<City>
+    fun getCityList(provinceId : Int) : MutableList<City>
 
     @Insert
-    suspend fun insertCountry(list: MutableList<Country>)
+    fun insertCountry(list: MutableList<Country>)
 
     @Query("select * from country where cityId = :cityId")
-    suspend fun getCountryList(cityId : Int) : MutableList<Country>
+    fun getCountryList(cityId : Int) : MutableList<Country>
 
 }

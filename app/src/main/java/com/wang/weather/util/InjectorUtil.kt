@@ -14,7 +14,7 @@ import com.wang.weather.ui.area.ChooseAreaModelFactory
  */
 object InjectorUtil {
 
-    private fun getPlaceRepository() = PlaceRepository.getInstance(LocalDataBase.getInstance().getPlaceDao(),WeatherNetWork.getInstance());
+    private fun getPlaceRepository() = PlaceRepository.getInstance(WeatherNetWork.getInstance());
 
     fun getChooseAreaModelFactory() = ChooseAreaModelFactory(getPlaceRepository())
 }

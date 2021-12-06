@@ -11,33 +11,34 @@ import kotlinx.coroutines.withContext
  * @date：2021/12/2
  * @packagename： com.wang.weather.data
  */
-class PlaceRepository(var placeDao: PlaceDao, var netWork: WeatherNetWork) {
+class PlaceRepository(var netWork: WeatherNetWork) {
+    private val dataBase : LocalDataBase by lazy { LocalDataBase.getInstance() }
 
     suspend fun getProvinceList() = withContext(Dispatchers.IO){
-        var provinceList = placeDao.getProvinceList()
+        var provinceList = dataBase.getPlaceDao().getProvinceList()
         if(provinceList.isEmpty()){
             provinceList = netWork.fetchProvinceList()
-            placeDao.insertProvince(provinceList)
+            dataBase.getPlaceDao().insertProvince(provinceList)
         }
         provinceList
     }
 
     suspend fun getCityList(provinceId : Int) = withContext(Dispatchers.IO){
-        var cityList = placeDao.getCityList(provinceId)
+        var cityList = dataBase.getPlaceDao().getCityList(provinceId)
         if(cityList.isEmpty()){
             cityList = netWork.fetchCityList(provinceId)
             cityList.forEach { it.provinceId = provinceId }
-            placeDao.insertCity(cityList)
+            dataBase.getPlaceDao().insertCity(cityList)
         }
         cityList
     }
 
     suspend fun getCountryList(provinceId: Int, cityId : Int) = withContext(Dispatchers.IO){
-        var countryList = placeDao.getCountryList(cityId)
+        var countryList = dataBase.getPlaceDao().getCountryList(cityId)
         if(countryList.isEmpty()){
             countryList = netWork.fetchCountryList(provinceId, cityId)
             countryList.forEach { it.cityId = cityId }
-            placeDao.insertCountry(countryList)
+            dataBase.getPlaceDao().insertCountry(countryList)
         }
         countryList
     }
@@ -46,11 +47,11 @@ class PlaceRepository(var placeDao: PlaceDao, var netWork: WeatherNetWork) {
 
         private var instance: PlaceRepository? = null
 
-        fun getInstance(placeDao: PlaceDao, netWork: WeatherNetWork): PlaceRepository {
+        fun getInstance(netWork: WeatherNetWork): PlaceRepository {
             if (instance == null) {
                 synchronized(PlaceRepository::class.java) {
                     if (instance == null) {
-                        instance = PlaceRepository(placeDao,netWork)
+                        instance = PlaceRepository(netWork)
                     }
                 }
             }
